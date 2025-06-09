@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                        <h2 class="mt-3">Cleanup Complete</h2>
+                        <p class="text-muted">All channels, groups, and bots have been processed</p>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Results</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card bg-light mb-3">
+                                        <div class="card-body text-center">
+                                            <h2 class="text-primary">{{ results.channels.success }}</h2>
+                                            <p class="mb-0">Channels Left</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card bg-light mb-3">
+                                        <div class="card-body text-center">
+                                            <h2 class="text-primary">{{ results.groups.success }}</h2>
+                                            <p class="mb-0">Groups Left</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card bg-light mb-3">
+                                        <div class="card-body text-center">
+                                            <h2 class="text-primary">{{ results.bots.success }}</h2>
+                                            <p class="mb-0">Bots Deleted</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {% if results.channels.failed > 0 or results.groups.failed > 0 or results.bots.failed > 0 %}
+                            <div class="alert alert-warning mt-4">
+                                <h6>Some items couldn't be processed:</h6>
+                                <ul class="mb-0">
+                                    {% if results.channels.failed > 0 %}
+                                    <li>{{ results.channels.failed }} channels couldn't be left</li>
+                                    {% endif %}
+                                    {% if results.groups.failed > 0 %}
+                                    <li>{{ results.groups.failed }} groups couldn't be left</li>
+                                    {% endif %}
+                                    {% if results.bots.failed > 0 %}
+                                    <li>{{ results.bots.failed }} bots couldn't be deleted</li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <a href="/channels" class="btn btn-primary btn-lg">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Manager
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
